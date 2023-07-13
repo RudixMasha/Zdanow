@@ -50,7 +50,7 @@ public class Main {
         panel.add(checkButton);
         panel.add(new JButton("Нет"));
 
-        yesButton.addActionListener(new ActionListener() {  // Добавили обработчик для новой кнопки
+        yesButton.addActionListener(new ActionListener() {  //Добавили обработчик для новой кнопки
             public void actionPerformed(ActionEvent e) {
                 currentLine++;
                 if (currentLine >= linesCount) {  // Если достигнут конец файла, переходим на первую строку
