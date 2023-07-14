@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -14,6 +15,21 @@ public class Main {
         JFrame frame = new JFrame("Программа");
         JButton startButton = new JButton("Начать");
         JButton exitButton = new JButton("Выйти");
+
+        ImageIcon icon = new ImageIcon("kva.jpg");
+        Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Icon scaledIcon = new ImageIcon(image);
+
+        JLabel imageLabel = new JLabel(scaledIcon);
+        frame.add(imageLabel, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        buttonPanel.add(exitButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        JPanel startButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        startButtonPanel.add(startButton);
+        frame.add(startButtonPanel, BorderLayout.SOUTH);
 
         JLabel cardLabel = new JLabel("", SwingConstants.CENTER);
         cardLabel.setVisible(false);
@@ -92,6 +108,7 @@ public class Main {
 
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                imageLabel.setIcon(null);
                 panel.setVisible(true);
                 cardLabel.setVisible(true);
                 startButton.setVisible(false);
@@ -120,21 +137,25 @@ public class Main {
                 System.exit(0);
             }
         });
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        buttonPanel.add(exitButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        JPanel startButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        startButtonPanel.add(startButton);
-        frame.add(startButtonPanel, BorderLayout.SOUTH);
-
+        Border border = BorderFactory.createLineBorder(new Color(154, 205, 50, 165),5);
+        Border border2 = BorderFactory.createLineBorder(new Color(255, 255, 115, 147),5);
         frame.add(panel, BorderLayout.SOUTH);
         panel.setVisible(false);
         frame.add(startButton, BorderLayout.WEST);
         frame.add(exitButton, BorderLayout.EAST);
-        frame.setSize(500, 150);
+        frame.setSize(362, 300);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBackground(new Color(34, 139, 34));// не работает лмао
+        exitButton.setBackground(new Color(255, 255, 115)); exitButton.setForeground(new Color(0, 100, 0));
+        exitButton.setBorder(border);
+        startButton.setBackground(new Color(255, 255, 115)); startButton.setForeground(new Color(0, 100, 0));
+        startButton.setBorder(border);
+        yesButton.setBackground(new Color(157, 206, 58)); yesButton.setForeground(new Color(255, 250, 250));
+        yesButton.setBorder(border2);
+        noButton.setBackground(new Color(157, 206, 58)); noButton.setForeground(new Color(255, 250, 250));
+        noButton.setBorder(border2);
+        checkButton.setBackground(new Color(255, 255, 115)); checkButton.setForeground(new Color(0, 100, 0));
+        checkButton.setBorder(border);
     }
 }
