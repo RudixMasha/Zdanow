@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Main {
     private static int currentLine;
@@ -48,8 +50,36 @@ public class Main {
             }
         });
         panel.add(checkButton);
-        panel.add(new JButton("Нет"));
-
+        JButton noButton = new JButton("Нет");  // Добавили новую кнопку
+        noButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FileReader fileReader = new FileReader("slova.txt");
+                    BufferedReader bufferedReader = new BufferedReader(fileReader);
+                    FileWriter fileWriter = new FileWriter("povtor.txt", true);  // Создаем объект FileWriter
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);  // Создаем объект BufferedWriter
+                    String line = bufferedReader.readLine();
+                    for (int i = 0; i < currentLine; i++) {  // Пропускаем строки до текущей позиции
+                        line = bufferedReader.readLine();
+                    }
+                    String[] parts = line.split("-");
+                    String firstPart = parts[0];
+                    String secondPart = parts[1];
+                    bufferedWriter.write(firstPart + "-" + secondPart);  // Записываем пару слов в файл
+                    bufferedWriter.newLine();  // Переходим на новую строку
+                    bufferedWriter.close();
+                    bufferedReader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                currentLine++;
+                if (currentLine >= linesCount) {  // Если достигнут конец файла, переходим на первую строку
+                    currentLine = 0;
+                }
+                checkButton.doClick();  // Вызываем проверку текущей строки
+            }
+        });
+        panel.add(noButton);
         yesButton.addActionListener(new ActionListener() {  //Добавили обработчик для новой кнопки
             public void actionPerformed(ActionEvent e) {
                 currentLine++;
