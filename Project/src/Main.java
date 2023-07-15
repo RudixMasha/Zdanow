@@ -89,8 +89,18 @@ public class Main {
                     ex.printStackTrace();
                 }
                 currentLine++;
-                if (currentLine >= linesCount) {  // Если достигнут конец файла, переходим на первую строку
+                if (currentLine >= linesCount) {
                     currentLine = 0;
+                    Object[] options = {"Повторить?", "Выйти"};
+                    int choice = JOptionPane.showOptionDialog(frame, "Файл был полностью прочитан!", "Конец файла",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        // Пользователь выбрал "Повторить?"
+                        checkButton.doClick();
+                    } else {
+                        // Пользователь выбрал "Выйти"
+                        System.exit(0);
+                    }
                 }
                 checkButton.doClick();  // Вызываем проверку текущей строки
             }
@@ -99,8 +109,18 @@ public class Main {
         yesButton.addActionListener(new ActionListener() {  //Добавили обработчик для новой кнопки
             public void actionPerformed(ActionEvent e) {
                 currentLine++;
-                if (currentLine >= linesCount) {  // Если достигнут конец файла, переходим на первую строку
+                if (currentLine >= linesCount) {
                     currentLine = 0;
+                    Object[] options = {"Повторить?", "Выйти"};
+                    int choice = JOptionPane.showOptionDialog(frame, "Файл был полностью прочитан!", "Конец файла",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        // Пользователь выбрал "Повторить?"
+                        checkButton.doClick();
+                    } else {
+                        // Пользователь выбрал "Выйти"
+                        System.exit(0);
+                    }
                 }
                 checkButton.doClick();  // Вызываем проверку текущей строки
             }
