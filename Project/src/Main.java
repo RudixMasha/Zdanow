@@ -16,8 +16,8 @@ public class Main {
         JButton startButton = new JButton("Начать");
         JButton exitButton = new JButton("Выйти");
 
-        ImageIcon icon = new ImageIcon("kva.jpg");
-        Image image = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon("kvaa.png");
+        Image image = icon.getImage().getScaledInstance(500, 400, Image.SCALE_SMOOTH);
         Icon scaledIcon = new ImageIcon(image);
 
         JLabel imageLabel = new JLabel(scaledIcon);
@@ -163,7 +163,7 @@ public class Main {
         panel.setVisible(false);
         frame.add(startButton, BorderLayout.WEST);
         frame.add(exitButton, BorderLayout.EAST);
-        frame.setSize(362, 300);
+        frame.setSize(500, 500);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(new Color(34, 139, 34));// не работает лмао
