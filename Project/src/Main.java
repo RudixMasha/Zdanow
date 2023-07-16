@@ -23,11 +23,11 @@ public class Main {
         JLabel imageLabel = new JLabel(scaledIcon);
         frame.add(imageLabel, BorderLayout.NORTH);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        JPanel buttonPanel = new JPanel();
         buttonPanel.add(exitButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.add(buttonPanel, BorderLayout.CENTER);
 
-        JPanel startButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel startButtonPanel = new JPanel(new GridLayout(1, 2));
         startButtonPanel.add(startButton);
         frame.add(startButtonPanel, BorderLayout.SOUTH);
 
@@ -37,8 +37,8 @@ public class Main {
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 3));
-        JButton yesButton = new JButton("Да");  // Переименовали кнопку
-        panel.add(yesButton);                  // Добавили новую кнопку
+        JButton yesButton = new JButton("Да");
+        panel.add(yesButton);          // Добавили новую кнопку
         JButton checkButton = new JButton("Проверить");
         checkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -157,7 +157,7 @@ public class Main {
                 System.exit(0);
             }
         });
-        Border border = BorderFactory.createLineBorder(new Color(154, 205, 50, 165),5);
+        Border border = BorderFactory.createLineBorder(new Color(0, 100, 0, 165),7);
         Border border2 = BorderFactory.createLineBorder(new Color(255, 255, 115, 147),5);
         frame.add(panel, BorderLayout.SOUTH);
         panel.setVisible(false);
@@ -167,15 +167,23 @@ public class Main {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(new Color(34, 139, 34));// не работает лмао
-        exitButton.setBackground(new Color(255, 255, 115)); exitButton.setForeground(new Color(0, 100, 0));
+        exitButton.setBackground(new Color(255, 255, 170)); exitButton.setForeground(new Color(0, 100, 0));
         exitButton.setBorder(border);
-        startButton.setBackground(new Color(255, 255, 115)); startButton.setForeground(new Color(0, 100, 0));
+        exitButton.setPreferredSize(new Dimension(246, 30));
+        exitButton.setFont(new Font("Arial", Font.BOLD, 20));
+        startButton.setBackground(new Color(255, 255, 170)); startButton.setForeground(new Color(0, 100, 0));
         startButton.setBorder(border);
+        startButton.setPreferredSize(new Dimension(246, 30));
+        startButton.setFont(new Font("Arial", Font.BOLD, 20));
         yesButton.setBackground(new Color(157, 206, 58)); yesButton.setForeground(new Color(255, 250, 250));
         yesButton.setBorder(border2);
+        yesButton.setPreferredSize(new Dimension(150, 50));
+        yesButton.setFont(new Font("Arial", Font.BOLD, 20));
         noButton.setBackground(new Color(157, 206, 58)); noButton.setForeground(new Color(255, 250, 250));
         noButton.setBorder(border2);
+        noButton.setFont(new Font("Arial", Font.BOLD, 20));
         checkButton.setBackground(new Color(255, 255, 115)); checkButton.setForeground(new Color(0, 100, 0));
         checkButton.setBorder(border);
+        checkButton.setFont(new Font("Arial", Font.BOLD, 20));
     }
 }
