@@ -185,5 +185,7 @@ public class Main {
         checkButton.setBackground(new Color(255, 255, 115)); checkButton.setForeground(new Color(0, 100, 0));
         checkButton.setBorder(border);
         checkButton.setFont(new Font("Arial", Font.BOLD, 20));
+        cardLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        cardLabel.setForeground(new Color(0, 100, 0));
     }
 }
