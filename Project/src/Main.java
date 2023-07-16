@@ -40,7 +40,7 @@ public class Main {
         checkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    FileReader fileReader = new FileReader("slova.txt");
+                    FileReader fileReader = new FileReader("povtor.txt");
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
                     String line = bufferedReader.readLine();
                     for (int i = 0; i < currentLine; i++) {  // Пропускаем строки до текущей позиции
@@ -66,42 +66,15 @@ public class Main {
         JButton noButton = new JButton("Нет");  // Добавили новую кнопку
         noButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*try {
-                    FileReader fileReader = new FileReader("povtor.txt");
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-                    FileReader fileReader = new FileReader("slova.txt");
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    FileWriter fileWriter = new FileWriter("povtor.txt", true);  // Создаем объект FileWriter
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);  // Создаем объект BufferedWriter
-
-                    String line = bufferedReader.readLine();
-                    for (int i = 0; i < currentLine; i++) {  // Пропускаем строки до текущей позиции
-                        line = bufferedReader.readLine();
-                    }
-
-
-                    String[] parts = line.split("-");
-                    String firstPart = parts[0];
-                    String secondPart = parts[1];
-
-                    bufferedWriter.write(firstPart + "-" + secondPart);  // Записываем пару слов в файл
-                    bufferedWriter.newLine();  // Переходим на новую строку
-                    bufferedWriter.close();
-
-                    textOfBlok.replaceAll(line,"");
-                    System.out.println("textOfBlok = "+textOfBlok+"\nline = "+line);
-                    bufferedReader.close();
-                    FileWriter fileWriter = new FileWriter("povtor.txt");//копируем текст блока во второй файл
-                    fileWriter.write(textOfBlok);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }*/
                 currentLine++;
+                //linesCount--;
+                System.out.println("currentLine= "+currentLine+" linesCount= "+linesCount);
                 if (currentLine >= linesCount) {
                     currentLine = 0;
-                    Object[] options = {"Повторить?", "Выйти"};
-                    int choice = JOptionPane.showOptionDialog(frame, "Файл был полностью прочитан!", "Конец файла",
+                    //System.out.println("currentLine = 0");
+                    Object[] options = {"Продолжить изучение?", "Выйти"};
+                    int choice = JOptionPane.showOptionDialog(frame, "Вы дошли до конца блока, но есть ещё невыученные термины!", "Конец блока",
                             JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                     if (choice == JOptionPane.YES_OPTION) {
                         // Пользователь выбрал "Повторить?"
@@ -125,31 +98,68 @@ public class Main {
                         line = bufferedReader.readLine();
                     }
                     bufferedReader.close();
-                textOfBlok=textOfBlok.replaceAll(line+"\n","");
-                //System.out.println("textOfBlok = "+textOfBlok+"\nline = Q"+line+"Q");
-                bufferedReader.close();
-                FileWriter fileWriter = new FileWriter("povtor.txt");
-                fileWriter.write(textOfBlok);
-                fileWriter.close();
+
+                    textOfBlok=textOfBlok.replaceAll(line+"\n","");
+                    textOfBlok=textOfBlok.replaceAll(line,"");
+                    currentLine--;
+                    linesCount--;
+                    System.out.println("currentLine= "+currentLine+" linesCount= "+linesCount);
+                    //System.out.println("textOfBlok = "+textOfBlok+"\nline = "+line);
+                    bufferedReader.close();
+                    FileWriter fileWriter = new FileWriter("povtor.txt");
+                    fileWriter.write(textOfBlok);
+                    fileWriter.close();
                 }  catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 currentLine++;
-                ///*
-                if (currentLine >= linesCount) {
+                if (textOfBlok.equals("")) {
                     currentLine = 0;
                     Object[] options = {"Повторить?", "Выйти"};
                     int choice = JOptionPane.showOptionDialog(frame, "Файл был полностью прочитан!", "Конец файла",
                             JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                     if (choice == JOptionPane.YES_OPTION) {
+                        try {
+                            FileReader fileReader = new FileReader("slova.txt");
+                            BufferedReader bufferedReader = new BufferedReader(fileReader);
+                            String line = bufferedReader.readLine();
+                            linesCount = 0;
+                            while (line != null) {  // Считаем количество строк в файле
+                                linesCount++;
+                                textOfBlok=textOfBlok+line+ "\n";//строка копирующая текст блока
+                                line = bufferedReader.readLine();
+                            }
+                            FileWriter fileWriter = new FileWriter("povtor.txt");//копируем текст блока во второй файл
+                            fileWriter.write(textOfBlok);
+                            fileWriter.close();
+                            bufferedReader.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                         // Пользователь выбрал "Повторить?"
                         checkButton.doClick();
                     } else {
                         // Пользователь выбрал "Выйти"
                         System.exit(0);
                     }
+                }else
+                if (currentLine >= linesCount) {
+                    currentLine = 0;
+                    Object[] options = {"Продолжить изучение?", "Выйти"};
+                    int choice = JOptionPane.showOptionDialog(frame, "Вы дошли до конца блока, но есть ещё невыученные термины!", "Конец блока",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        // Пользователь выбрал "Повторить?"
+
+
+
+
+                        checkButton.doClick();
+                    } else {
+                        // Пользователь выбрал "Выйти"
+                        System.exit(0);
+                    }
                 }
-                //*/
                 checkButton.doClick();  // Вызываем проверку текущей строки
             }
         });
@@ -165,7 +175,6 @@ public class Main {
                     FileReader fileReader = new FileReader("slova.txt");
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
                     String line = bufferedReader.readLine();
-                    //String textOfBlok="";
                     linesCount = 0;
                     while (line != null) {  // Считаем количество строк в файле
                         linesCount++;
@@ -178,17 +187,6 @@ public class Main {
                     fileWriter.write(textOfBlok);
                     fileWriter.close();
                     bufferedReader.close();
-                    /*
-                    FileReader fileReader = new FileReader("slova.txt");
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    String line = bufferedReader.readLine();
-                    linesCount = 0;
-                    while (line != null) {  // Считаем количество строк в файле
-                        linesCount++;
-                        line = bufferedReader.readLine();
-                    }
-                    bufferedReader.close();
-                    */
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
