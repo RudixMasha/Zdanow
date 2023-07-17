@@ -70,13 +70,11 @@ public class Main {
                         StringBuffer stringBuffer = new StringBuffer(firstPart);
                         if (i%31==0)
                             firstPart= String.valueOf(stringBuffer.insert(i,"\n"));
-                        System.out.println(firstPart);
                     }
                     for (int i=0; i<secondPart.length(); i++){
                         StringBuffer stringBuffer = new StringBuffer(secondPart);
                         if (i%31==0)
                             secondPart= String.valueOf(stringBuffer.insert(i,"\n"));
-                        System.out.println(secondPart);
                     }
 
                     if (cardLabel.getText().equals(firstPart)) {
@@ -150,8 +148,6 @@ public class Main {
                     textOfBlok=textOfBlok.replaceAll(line,"");
                     currentLine--;
                     linesCount--;
-                    System.out.println("currentLine= "+currentLine+" linesCount= "+linesCount);
-                    //System.out.println("textOfBlok = "+textOfBlok+"\nline = "+line);
                     bufferedReader.close();
                     FileWriter fileWriter = new FileWriter("povtor.txt");
                     fileWriter.write(textOfBlok);
