@@ -1,12 +1,11 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.*;
 
 public class Main {
     private static int currentLine;
@@ -40,6 +39,16 @@ public class Main {
         JButton yesButton = new JButton("Да");
         panel.add(yesButton);          // Добавили новую кнопку
         JButton checkButton = new JButton("Проверить");
+
+        try {
+            File soundFile = new File("ost.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         checkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -166,7 +175,7 @@ public class Main {
         frame.setSize(500, 500);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(new Color(34, 139, 34));// не работает лмао
+        frame.getContentPane().setBackground(new Color(235, 255, 84));// не работает лмао
         exitButton.setBackground(new Color(255, 255, 170)); exitButton.setForeground(new Color(0, 100, 0));
         exitButton.setBorder(border);
         exitButton.setPreferredSize(new Dimension(246, 30));
