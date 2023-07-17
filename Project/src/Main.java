@@ -5,19 +5,19 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.*;//31
 
 public class Main {
     private static int currentLine;
     private static int linesCount;
     public static String textOfBlok="";
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Программа");
+        JFrame frame = new JFrame("Помни, наконец запомни");
         JButton startButton = new JButton("Начать");
         JButton exitButton = new JButton("Выйти");
 
         ImageIcon icon = new ImageIcon("kvaa.png");
-        Image image = icon.getImage().getScaledInstance(500, 400, Image.SCALE_SMOOTH);
+        Image image = icon.getImage().getScaledInstance(900, 700, Image.SCALE_SMOOTH);
         Icon scaledIcon = new ImageIcon(image);
 
         JLabel imageLabel = new JLabel(scaledIcon);
@@ -32,7 +32,11 @@ public class Main {
         frame.add(startButtonPanel, BorderLayout.SOUTH);
 
         JLabel cardLabel = new JLabel("", SwingConstants.CENTER);
+        //JTextArea cardLabel = new JTextArea(String.valueOf(SwingConstants.CENTER));
+
         cardLabel.setVisible(false);
+        cardLabel.setPreferredSize(new Dimension(100,300));
+        cardLabel.setBounds(50,10,450,300);
         frame.add(cardLabel, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();
@@ -62,12 +66,42 @@ public class Main {
                     String[] parts = line.split("-");
                     String firstPart = parts[0];
                     String secondPart = parts[1];
+                    for (int i=0; i<firstPart.length(); i++){
+                        StringBuffer stringBuffer = new StringBuffer(firstPart);
+                        if (i%31==0)
+                            firstPart= String.valueOf(stringBuffer.insert(i,"\n"));
+                        System.out.println(firstPart);
+                    }
+                    for (int i=0; i<secondPart.length(); i++){
+                        StringBuffer stringBuffer = new StringBuffer(secondPart);
+                        if (i%31==0)
+                            secondPart= String.valueOf(stringBuffer.insert(i,"\n"));
+                        System.out.println(secondPart);
+                    }
 
                     if (cardLabel.getText().equals(firstPart)) {
                         cardLabel.setText(secondPart);
                     } else {
                         cardLabel.setText(firstPart);
                     }
+
+                    /*if (cardLabel.getText().equals(firstPart)) {
+                        cardLabel.setText("");
+                        for (int i=0; i<secondPart.length(); i++){
+                            cardLabel.setText(cardLabel.getText()+String.valueOf(secondPart.charAt(i)));
+                            System.out.println(i);
+                            if (i%31==0)
+                                cardLabel.setText(cardLabel.getText()+"\n");
+                        }
+                    } else {
+                        cardLabel.setText("");
+                        for (int i=0; i<firstPart.length(); i++){
+                            cardLabel.setText(cardLabel.getText()+String.valueOf(firstPart.charAt(i)));
+                            System.out.println(i);
+                            if (i%31==0)
+                                cardLabel.setText(cardLabel.getText()+"\n");
+                        }
+                    }*/
 
                     bufferedReader.close();
                 } catch (IOException ex) {
@@ -82,7 +116,7 @@ public class Main {
 
                 currentLine++;
                 //linesCount--;
-                System.out.println("currentLine= "+currentLine+" linesCount= "+linesCount);
+                //System.out.println("currentLine= "+currentLine+" linesCount= "+linesCount);
                 if (currentLine >= linesCount) {
                     currentLine = 0;
                     //System.out.println("currentLine = 0");
@@ -221,29 +255,35 @@ public class Main {
         frame.add(startButton, BorderLayout.WEST);
         frame.add(exitButton, BorderLayout.EAST);
         //frame.setSize(500, 500);
-        frame.setBounds(460,180,500,500);
+
+        Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+
+
+        frame.setBounds(0,-1,sSize.width+5,sSize.height-30);
+
+
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(new Color(235, 255, 84));// не работает лмао
         exitButton.setBackground(new Color(255, 255, 170)); exitButton.setForeground(new Color(0, 100, 0));
         exitButton.setBorder(border);
-        exitButton.setPreferredSize(new Dimension(246, 30));
-        exitButton.setFont(new Font("Arial", Font.BOLD, 20));
+        exitButton.setPreferredSize(new Dimension(sSize.width/2, 10));
+        exitButton.setFont(new Font("Arial", Font.BOLD, 30));
         startButton.setBackground(new Color(255, 255, 170)); startButton.setForeground(new Color(0, 100, 0));
         startButton.setBorder(border);
-        startButton.setPreferredSize(new Dimension(246, 30));
-        startButton.setFont(new Font("Arial", Font.BOLD, 20));
+        startButton.setPreferredSize(new Dimension(sSize.width/2, 30));
+        startButton.setFont(new Font("Arial", Font.BOLD, 30));
         yesButton.setBackground(new Color(157, 206, 58)); yesButton.setForeground(new Color(255, 250, 250));
         yesButton.setBorder(border2);
-        yesButton.setPreferredSize(new Dimension(150, 50));
-        yesButton.setFont(new Font("Arial", Font.BOLD, 20));
+        yesButton.setPreferredSize(new Dimension(150, 90));
+        yesButton.setFont(new Font("Arial", Font.BOLD, 30));
         noButton.setBackground(new Color(157, 206, 58)); noButton.setForeground(new Color(255, 250, 250));
         noButton.setBorder(border2);
-        noButton.setFont(new Font("Arial", Font.BOLD, 20));
+        noButton.setFont(new Font("Arial", Font.BOLD, 30));
         checkButton.setBackground(new Color(255, 255, 115)); checkButton.setForeground(new Color(0, 100, 0));
         checkButton.setBorder(border);
-        checkButton.setFont(new Font("Arial", Font.BOLD, 20));
-        cardLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        checkButton.setFont(new Font("Arial", Font.BOLD, 30));
+        cardLabel.setFont(new Font("Arial", Font.BOLD, 30));
         cardLabel.setForeground(new Color(0, 100, 0));
     }
 }
